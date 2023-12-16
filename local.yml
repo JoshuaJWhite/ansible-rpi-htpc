@@ -27,6 +27,7 @@
         - iperf3 #Internet Protocol bandwidth measuring tool
         - vifm #flexible vi-like file manager using ncurses
         - iotop #simple top-like I/O monitor
+        - unattended-upgrades #automatic installation of security upgrades
       state: present
 
   - name: remove packages
