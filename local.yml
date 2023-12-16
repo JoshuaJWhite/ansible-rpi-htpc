@@ -129,3 +129,11 @@
       owner: root
       group: root
       mode: 0644 #-rw-r--r--
+
+  - name: add unattended-upgrades cron job
+    cron:
+      name: ansible unattended-upgrades
+      user: ansible_user
+      minute: "0"
+      hour: "0"
+      job: /usr/bin/unattended-upgrade -d
