@@ -1,0 +1,117 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+# ____            _                      __  __                                                   _
+#|  _ \ __ _  ___| | ____ _  __ _  ___  |  \/  | __ _ _ __   __ _  __ _  ___ _ __ _    __ _ _ __ | |_
+#| |_) / _` |/ __| |/ / _` |/ _` |/ _ \ | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__(_)  / _` | '_ \| __|
+#|  __/ (_| | (__|   < (_| | (_| |  __/ | |  | | (_| | | | | (_| | (_| |  __/ |   _  | (_| | |_) | |_
+#|_|   \__,_|\___|_|\_\__,_|\__, |\___| |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|  (_)  \__,_| .__/ \__|
+#                           |___/                                 |___/                    |_|
+  - name: apt-get update, apt-get dist-upgrade
+    ansible.builtin.apt:
+      update_cache: true
+      upgrade: dist
+
+  - name: install packages
+    package:
+      name:
+        - vim
+        - tree #command for directory tree listing
+        - htop
+        - flatpak
+        - lf #range inspired file manager
+        - figlet #for making text banners of ASCII characters
+        - iperf3 #Internet Protocol bandwidth measuring tool
+        - vifm #flexible vi-like file manager using ncurses
+        - iotop #simple top-like I/O monitor
+      state: present
+
+  - name: remove packages
+    package:
+      name:
+        - nano
+      state: absent
+      purge: yes
+
+  - name: remove dependencies that are no longer required
+    package:
+      autoremove: yes
+#                          _       _
+#  ___ _ __ ___  _ __     (_) ___ | |__  ___
+# / __| '__/ _ \| '_ \    | |/ _ \| '_ \/ __|
+#| (__| | | (_) | | | |   | | (_) | |_) \__ \
+# \___|_|  \___/|_| |_|  _/ |\___/|_.__/|___/
+#                       |__/
+# ---- ---- ---- Add ansible cron job ---- ---- ----
+  - name: add ansible user
+    user:
+      name: ansible_user
+      system: yes
+
+  - name: set up sudo for ansible user
+    copy:
+      src: files/sudoer_ansible_user
+      dest: /etc/sudoers.d/ansible_user
+      owner: root
+      group: root
+      mode: 0440
+
+  - name: add ansible-pull cron job
+    cron:
+      name: ansible auto-provision
+      user: ansible_user
+      minute: "*/60"
+      job: ansible-pull -U https://github.com/JoshuaJWhite/ansible.git
+
+# _____ _       _               _
+#|  ___| | __ _| |_ _ __   __ _| | __
+#| |_  | |/ _` | __| '_ \ / _` | |/ /
+#|  _| | | (_| | |_| |_) | (_| |   <
+#|_|   |_|\__,_|\__| .__/ \__,_|_|\_\
+#                  |_|
+  - name: add the flathub flatpak repository remote to the user installation
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+  - name: install multiple package from flathub
+    community.general.flatpak:
+      name:
+        - com.moonlight_stream.Moonlight #Moonlight - Play games remotely from your NVIDIA GameStream-enabled PC
+      state: present
+
+  - name: update all flatpak(s)
+    ansible.builtin.command: flatpak update --noninteractive
+    register: flatpak_update_output
+    changed_when: "'app/' in flatpak_update_output.stdout"
+
+#   _               _
+#  | |__   __ _ ___| |__  _ __ ___
+#  | '_ \ / _` / __| '_ \| '__/ __|
+# _| |_) | (_| \__ \ | | | | | (__
+#(_)_.__/ \__,_|___/_| |_|_|  \___|
+  - name: copy bashrc file
+    copy:
+      src: files/bashrc
+      dest: /home/htpc/.bashrc
+      owner: htpc
+      group: htpc
+      mode: 0644 #-rw-r--r--
+
+#       _
+#__   _(_)_ __ ___  _ __ ___
+#\ \ / / | '_ ` _ \| '__/ __|
+# \ V /| | | | | | | | | (__
+#(_)_/ |_|_| |_| |_|_|  \___|
+  - name: copy vimrc config file
+    ansible.builtin.copy:
+      src: files/vimrc
+      dest: /home/htpc/.vimrc
+      owner: htpc
+      group: htpc
+      mode: 0600 #-rw-------
+
