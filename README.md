@@ -3,8 +3,11 @@ configuration for raspberry pi htpc streaming client
 
 # SD Card Imaging
 Image the SD card using the installer from: https://www.raspberrypi.com/software/
+
      Raspberry Pi Device="RASPBERRY PI 4"
+
      Operating System="RASPBERRY PI OS (64-BIT)"
+
      Storage=
 
 # On Device Setup
