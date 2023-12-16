@@ -130,7 +130,7 @@
       group: root
       mode: 0644 #-rw-r--r--
 
-  - name: add unattended-upgrades cron job
+  - name: add unattended-upgrades cron job #will run at midnight daily
     cron:
       name: ansible unattended-upgrades
       user: ansible_user
