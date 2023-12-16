@@ -35,3 +35,7 @@ Lastly, run ansible pull:
 ```
 sudo ansible-pull -U https://github.com/JoshuaJWhite/ansible-rpi-htpc.git
 ```
+
+# XBoxOne Controller
+The XBoxOne controller in a USB wired configuration requires the following settings in steam to function:
+Steam Settings > Controller > External Gamepad Settings > Enable Steam Input for XBox Controllers = YES
