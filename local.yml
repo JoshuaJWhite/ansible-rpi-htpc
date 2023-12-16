@@ -33,6 +33,7 @@
     package:
       name:
         - nano
+        - flatpak
       state: absent
       purge: yes
 
@@ -64,7 +65,7 @@
       name: ansible auto-provision
       user: ansible_user
       minute: "*/60"
-      job: ansible-pull -U https://github.com/JoshuaJWhite/ansible.git
+      job: ansible-pull -o -U https://github.com/JoshuaJWhite/ansible.git
 
 #   _               _
 #  | |__   __ _ ___| |__  _ __ ___
