@@ -27,7 +27,6 @@
         - iperf3 #Internet Protocol bandwidth measuring tool
         - vifm #flexible vi-like file manager using ncurses
         - iotop #simple top-like I/O monitor
-        - unattended-upgrades #automatic installation of security upgrades
       state: present
 
   - name: remove packages
@@ -110,3 +109,23 @@
       name:
         - moonlight-qt
       state: present
+
+#                   _   _                 _          _                                       _
+# _   _ _ __   __ _| |_| |_ ___ _ __   __| | ___  __| |      _   _ _ __   __ _ _ __ __ _  __| | ___  ___
+#| | | | '_ \ / _` | __| __/ _ \ '_ \ / _` |/ _ \/ _` |_____| | | | '_ \ / _` | '__/ _` |/ _` |/ _ \/ __|
+#| |_| | | | | (_| | |_| ||  __/ | | | (_| |  __/ (_| |_____| |_| | |_) | (_| | | | (_| | (_| |  __/\__ \
+# \__,_|_| |_|\__,_|\__|\__\___|_| |_|\__,_|\___|\__,_|      \__,_| .__/ \__, |_|  \__,_|\__,_|\___||___/
+#                                                                 |_|    |___/
+  - name: install unattended-upgrades
+    package:
+      name:
+        - unattended-upgrades #automatic installation of security upgrades
+      state: present
+
+  - name: copy unattended-upgrades config file
+    copy:
+      src: files/50unattended-upgrades
+      dest: /etc/apt/apt.conf.d/50unattended-upgrades
+      owner: root
+      group: root
+      mode: 0644 #-rw-r--r--
