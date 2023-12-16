@@ -66,29 +66,6 @@
       minute: "*/60"
       job: ansible-pull -U https://github.com/JoshuaJWhite/ansible.git
 
-# _____ _       _               _
-#|  ___| | __ _| |_ _ __   __ _| | __
-#| |_  | |/ _` | __| '_ \ / _` | |/ /
-#|  _| | | (_| | |_| |_) | (_| |   <
-#|_|   |_|\__,_|\__| .__/ \__,_|_|\_\
-#                  |_|
-  - name: add the flathub flatpak repository remote to the user installation
-    community.general.flatpak_remote:
-      name: flathub
-      state: present
-      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-
-  - name: install multiple package from flathub
-    community.general.flatpak:
-      name:
-        - com.moonlight_stream.Moonlight #Moonlight - Play games remotely from your NVIDIA GameStream-enabled PC
-      state: present
-
-  - name: update all flatpak(s)
-    ansible.builtin.command: flatpak update --noninteractive
-    register: flatpak_update_output
-    changed_when: "'app/' in flatpak_update_output.stdout"
-
 #   _               _
 #  | |__   __ _ ___| |__  _ __ ___
 #  | '_ \ / _` / __| '_ \| '__/ __|
