@@ -92,3 +92,19 @@
       group: htpc
       mode: 0600 #-rw-------
 
+# __  __                   _ _       _     _
+#|  \/  | ___   ___  _ __ | (_) __ _| |__ | |_
+#| |\/| |/ _ \ / _ \| '_ \| | |/ _` | '_ \| __|
+#| |  | | (_) | (_) | | | | | | (_| | | | | |_
+#|_|  |_|\___/ \___/|_| |_|_|_|\__, |_| |_|\__|
+#                              |___/
+  - name: add moonlight qt to apt
+    ansible.builtin.shell: ./files/moonlight.sh
+    args:
+      executable: /bin/bash
+
+  - name: install moonlight-qt
+    package:
+      name:
+        - moonlight-qt
+      state: present
