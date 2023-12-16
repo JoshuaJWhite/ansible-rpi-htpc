@@ -19,9 +19,9 @@
     package:
       name:
         - vim
+        - curl
         - tree #command for directory tree listing
         - htop
-        - flatpak
         - lf #range inspired file manager
         - figlet #for making text banners of ASCII characters
         - iperf3 #Internet Protocol bandwidth measuring tool
@@ -99,7 +99,7 @@
 #|_|  |_|\___/ \___/|_| |_|_|_|\__, |_| |_|\__|
 #                              |___/
   - name: add moonlight qt to apt
-    ansible.builtin.shell: sudo ./files/moonlight.sh
+    ansible.builtin.shell: curl -1sLf 'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-qt/setup.deb.sh' | distro=raspbian sudo -E bash
     args:
       executable: /bin/bash
 
