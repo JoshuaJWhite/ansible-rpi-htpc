@@ -39,3 +39,17 @@ sudo ansible-pull -U https://github.com/JoshuaJWhite/ansible-rpi-htpc.git
 # XBoxOne Controller
 The XBoxOne controller in a USB wired configuration requires the following settings in steam to function:<br>
 Steam Settings > Controller > External Gamepad Settings > Enable Steam Input for XBox Controllers = YES
+
+# Chromium Hardware Video Decode
+The following settings will need to be changed in Chromium:
+
+In the Chromium browser url bar type:
+```
+chrome://flags
+```
+
+Set the following:<br>
+Override software rendering list = "Enabled"<br>
+GPU rasterization = "Enabled"<br>
+Hardware-accelerated video decode = "Enabled"<br>
+Out-of-process 2D canvas rasterization = "Enabled"
