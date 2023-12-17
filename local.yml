@@ -196,8 +196,8 @@
     register: flatpak_update_output
     changed_when: "'app/' in flatpak_update_output.stdout"
 
-  - name: install package(s) from flathub
-    community.general.flatpak:
-      name:
-        - com.discordapp.Discord
-      state: present
+#  - name: install package(s) from flathub
+#    community.general.flatpak:
+#      name:
+#        - com.discordapp.Discord
+#      state: present
