@@ -34,7 +34,6 @@
     package:
       name:
         - nano
-        - flatpak
       state: absent
       purge: yes
 
@@ -65,7 +64,7 @@
     cron:
       name: ansible auto-provision
       user: ansible_user
-      minute: "*/60"
+      minute: "*/10"
       job: ansible-pull --only-if-changed -U https://github.com/JoshuaJWhite/ansible.git
 
 #   _               _
@@ -174,3 +173,33 @@
       group: root
       mode: 0777 #-rwxrwxrwx
       follow: true
+
+# _____ _       _               _
+#|  ___| | __ _| |_ _ __   __ _| | __
+#| |_  | |/ _` | __| '_ \ / _` | |/ /
+#|  _| | | (_| | |_| |_) | (_| |   <
+#|_|   |_|\__,_|\__| .__/ \__,_|_|\_\
+#                  |_|
+  - name: install flatpak
+    package:
+      name:
+        - flatpak
+      state: present
+
+  - name: add the flathub flatpak repository remote to the user installation
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+  - name: update all flatpak(s)
+    ansible.builtin.command: flatpak update --noninteractive
+    register: flatpak_update_output
+    changed_when: "'app/' in flatpak_update_output.stdout"
+
+  - name: install package(s) from flathub
+    community.general.flatpak:
+      name:
+        - com.discordapp.Discord
+      state: present
+
