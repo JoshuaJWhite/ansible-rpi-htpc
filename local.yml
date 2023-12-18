@@ -28,6 +28,7 @@
         - vifm #flexible vi-like file manager using ncurses
         - iotop #simple top-like I/O monitor
         - xboxdrv #Xbox360 gamepad driver for the userspace
+        - neofetch #Shows Linux System Information with Distribution Logo
       state: present
 
   - name: remove packages
@@ -60,7 +61,7 @@
       mode: 0440
 
   - name: add ansible-pull cron job
-    cron:
+    ansible.builtin.cron:
       name: ansible auto-provision
       user: ansible_user
       minute: "*/10"
@@ -130,7 +131,7 @@
       mode: 0644 #-rw-r--r--
 
   - name: add unattended-upgrades cron job #will run at midnight daily
-    cron:
+    ansible.builtin.cron:
       name: ansible unattended-upgrades
       user: ansible_user
       minute: "0"
