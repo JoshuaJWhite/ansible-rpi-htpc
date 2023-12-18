@@ -66,6 +66,7 @@
       user: ansible_user
       minute: "*/10"
       job: ansible-pull --only-if-changed -U https://github.com/JoshuaJWhite/ansible.git
+      state : present
 
 #   _               _
 #  | |__   __ _ ___| |__  _ __ ___
@@ -136,7 +137,14 @@
       user: ansible_user
       minute: "0"
       hour: "0"
-      job: /usr/bin/unattended-upgrade -d
+      job: /usr/bin/unattended-upgrade
+      state : absent
+
+  - name: systemctl unattended-upgrades
+    ansible.builtin.systemd_service:
+      name: unattended-upgrades
+      state: started
+      enabled: true
 
 # _               _
 #| |__   ___  ___| |_ _ __   __ _ _ __ ___   ___
