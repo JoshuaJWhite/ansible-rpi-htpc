@@ -27,7 +27,7 @@ Unattended-Upgrade::Origins-Pattern {
         // Software will be the latest available for the named release,
         // but the Debian release itself will not be automatically upgraded.
         "origin=Debian,codename=${distro_codename}-updates";
-        "origin=Debian,codename=${distro_codename}-proposed-updates";
+//        "origin=Debian,codename=${distro_codename}-proposed-updates";
         "origin=Debian,codename=${distro_codename},label=Debian";
         "origin=Debian,codename=${distro_codename},label=Debian-Security";
         "origin=Debian,codename=${distro_codename}-security,label=Debian-Security";
