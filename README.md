@@ -55,6 +55,7 @@ sudo ./install.sh --release
 sudo xone-get-firmware.sh
 ```
 
+You will need to pair the xbox controller with the dongle.
 
 # Chromium Hardware Video Decode
 The following settings will need to be changed in Chromium:
