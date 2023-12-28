@@ -40,6 +40,9 @@ sudo ansible-pull -U https://github.com/JoshuaJWhite/ansible-rpi-htpc.git
 The XBoxOne controller in a USB wired configuration requires the following settings in steam to function:<br>
 Steam Settings > Controller > External Gamepad Settings > Enable Steam Input for XBox Controllers = YES
 
+The XBoxOne controller with wireless dongle for pc requires xone be installed:
+https://github.com/medusalix/xone
+
 # Chromium Hardware Video Decode
 The following settings will need to be changed in Chromium:
 
