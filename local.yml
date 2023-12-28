@@ -31,6 +31,14 @@
         - neofetch #Shows Linux System Information with Distribution Logo
       state: present
 
+  - name: install packages for xone #the xbox wireless dongle control
+    package:
+      name:
+        - dkms
+        - curl
+        - cabextract
+      state: present
+
   - name: remove packages
     package:
       name:
